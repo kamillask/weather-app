@@ -1,12 +1,12 @@
 export class DOMHandler {
     locationInput = document.getElementById("searchWeatherInput");
 
-    constructor(APIHandler) {
+    constructor(APIHandler, LocationHandler) {
         this.APIHandler = APIHandler;
+        this.LocationHandler = LocationHandler;
 
         this.locationInput.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
-                console.log("ented")
                 this.getLocationInput(this.locationInput.value);
             }
         });
