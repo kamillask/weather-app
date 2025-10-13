@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#searchWeather {
+    margin: 10px;
+}
+
+#searchWeatherInput {
+    width: 40vw;
+    height: 8vh;
+    padding: 2px 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+    font-size: 3vh;
+}
