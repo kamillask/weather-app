@@ -1,5 +1,6 @@
 export class DOMHandler {
     locationInput = document.getElementById("searchWeatherInput");
+    mainInfo = document.getElementById("mainInfo");
 
     constructor(APIHandler, LocationHandler) {
         this.APIHandler = APIHandler;
@@ -12,11 +13,21 @@ export class DOMHandler {
         });
     }
 
+    setDOMLocation = (location) => {
+        this.LocationHandler = location;
+    }
+
     getLocationInput = async (location) => {
         try {
-            await this.APIHandler.getLocation(location);
+            const result = await this.APIHandler.getLocation(location);
+            this.setDOMLocation(result);
+            this.updateInfo();
         } catch (err) {
             console.log("Enter a valid location");
         }
     };
+
+    updateInfo = () => {
+        this.mainInfo.textContent = this.LocationHandler.address;
+    }
 }

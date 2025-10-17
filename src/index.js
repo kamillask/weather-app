@@ -3,7 +3,18 @@ import { DOMHandler } from "./DOMHandler";
 import { LocationHandler } from "./LocationHandler";
 import "./styles.css";
 
-const APIHandlerTest = new APIHandler();
-const LocationHandlerTest = new LocationHandler();
-const DOMHandlerTest = new DOMHandler(APIHandlerTest);
-APIHandlerTest.getLocation("greenpoint");
+const initializeApp = async () => {
+    try{
+        const APIHandlerTest = new APIHandler();
+        const greenpointWeather = await APIHandlerTest.getLocation("greenpoint");
+        const LocationHandlerTest = new LocationHandler(greenpointWeather);
+        const DOMHandlerTest = new DOMHandler(APIHandlerTest, LocationHandlerTest);
+        DOMHandlerTest.updateInfo();
+    } catch(err){
+        console.error("Failed to initialize the app: ", err);
+    }
+}
+
+initializeApp();
+
+
