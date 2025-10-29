@@ -1,9 +1,14 @@
 import { LocationHandler } from "./LocationHandler";
+import cloudy from "./images/cloudy.png";
 
 export class UIHandler{
 
     constructor(LocationHandler){
         this.LocationHandler = LocationHandler;
+    }
+
+    createUIHandler(location){
+        return new UIHandler(location);
     }
 
     createElement(elementType, elementClass, elementID, textContent){
@@ -14,7 +19,17 @@ export class UIHandler{
         return element;
     }
 
+    createIcon = (elementClass, elementID, icon) => {
+        const element = document.createElement("img");
+        element.className = elementClass;
+        element.id = elementID;
+        //working on this, cant get icon to work dynamically
+        element.src = icon;
+        return element;
+    }
+
     createMainCard(){
+        //does this need a separate container? is maininfo enough?
         const mainInfo = document.getElementById("mainInfo");
         const mainContainer = this.createElement("div", "mainCard", "mainCardElement");
         const locationName = this.createElement("div", "locationName", "locationNameID", this.LocationHandler.locationName);
@@ -27,7 +42,20 @@ export class UIHandler{
     }
 
     createHourlyCard(){
-
+        const hourlyInfo = document.getElementById("hourlyInfo");
+        this.LocationHandler.hourlyConditions.forEach((element, index) => {
+            const hourCard = this.createElement("div", "hourCard", "hourCard"+index);
+            const hourInfo = this.LocationHandler.returnHourlyInfo(index);
+            const hourDateTime = this.createElement("div", "hourDateTime", "hourDateTime"+index, hourInfo.dateTime);
+            const hourTemp = this.createElement("div", "hourTemp", "hourTemp"+index, hourInfo.hourTemp);
+            const hourFeelsLike = this.createElement("div", "hourFeelsLike", "hourFeelsLike"+index, hourInfo.hourFeelsLike);
+            const hourConditions = this.createIcon("hourIcon", "hourIcon"+index, hourInfo.hourIcon);
+            hourCard.appendChild(hourDateTime);
+            hourCard.appendChild(hourTemp);
+            hourCard.appendChild(hourFeelsLike);
+            hourCard.appendChild(hourConditions);
+            hourlyInfo.append(hourCard);
+        })
     }
 
     createWeeklyCard(){

@@ -22,10 +22,19 @@ export class DOMHandler {
             content.removeChild(content.firstChild);
         }
     }
+
+    clearAll = () => {
+        this.clearElement("mainInfo");
+        this.clearElement("hourlyInfo");
+        this.clearElement("weeklyInfo");
+    }
+
     //move to different class
     setDOMLocation = (location) => {
         const newLocation = this.LocationHandler.createLocation(location);
         this.LocationHandler = newLocation;
+        const newUIHandler = this.UIHandler.createUIHandler(this.LocationHandler);
+        this.UIHandler = newUIHandler;
     }
     //move to different class
     getLocationInput = async (location) => {
@@ -39,18 +48,13 @@ export class DOMHandler {
     };
 
     updateInfo = () => {
-        // this.updateMainInfo();
+        this.clearAll();
         this.UIHandler.createMainCard();
-        this.updateHourlyInfo();
+        this.UIHandler.createHourlyCard();
         this.updateWeeklyInfo();
     }
 
-    updateMainInfo = () => {
-        this.mainInfo.textContent = this.LocationHandler.locationName;
-    }
-
     updateHourlyInfo = () => {
-        this.clearElement("hourlyInfo");
         const hourlyInfo = document.getElementById("hourlyInfo");
         this.LocationHandler.hourlyConditions.forEach(element => {
             const hour = document.createElement("div");
@@ -60,7 +64,6 @@ export class DOMHandler {
     }
 
     updateWeeklyInfo = () => { 
-        this.clearElement("weeklyInfo");
         const weeklyInfo = document.getElementById("weeklyInfo");
         this.LocationHandler.weeklyConditions.forEach(element => {
             const day = document.createElement("div");

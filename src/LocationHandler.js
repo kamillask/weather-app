@@ -16,4 +16,14 @@ export class LocationHandler {
     createLocation(location) {
         return new LocationHandler(location);
     }
+
+    returnHourlyInfo(index){
+        const hour = {
+            dateTime: this.hourlyConditions[index].datetime,
+            hourTemp: this.hourlyConditions[index].temp,
+            hourFeelsLike: this.hourlyConditions[index].feelslike,
+            hourIcon: this.hourlyConditions[index].icon
+        }
+        return hour;
+    }
 }
