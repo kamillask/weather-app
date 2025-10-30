@@ -47,7 +47,7 @@ export class DOMHandler {
         }
     };
 
-    updateInfo = () => {
+    updateInfo = async () => {
         this.clearAll();
         this.UIHandler.createMainCard();
         this.UIHandler.createHourlyCard();

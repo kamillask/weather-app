@@ -19,12 +19,13 @@ export class UIHandler{
         return element;
     }
 
-    createIcon = (elementClass, elementID, icon) => {
+    createIcon = async (elementClass, elementID, icon) => {
         const element = document.createElement("img");
         element.className = elementClass;
         element.id = elementID;
         //working on this, cant get icon to work dynamically
-        element.src = icon;
+        const weatherIcon = await import(`./images/${icon}.png`);
+        element.src = weatherIcon.default;
         return element;
     }
 
@@ -41,21 +42,21 @@ export class UIHandler{
         mainInfo.appendChild(mainContainer);
     }
 
-    createHourlyCard(){
+    createHourlyCard = async () => {
         const hourlyInfo = document.getElementById("hourlyInfo");
-        this.LocationHandler.hourlyConditions.forEach((element, index) => {
+        for(let index = 0; index<this.LocationHandler.hourlyConditions.length; index++){
             const hourCard = this.createElement("div", "hourCard", "hourCard"+index);
             const hourInfo = this.LocationHandler.returnHourlyInfo(index);
             const hourDateTime = this.createElement("div", "hourDateTime", "hourDateTime"+index, hourInfo.dateTime);
             const hourTemp = this.createElement("div", "hourTemp", "hourTemp"+index, hourInfo.hourTemp);
             const hourFeelsLike = this.createElement("div", "hourFeelsLike", "hourFeelsLike"+index, hourInfo.hourFeelsLike);
-            const hourConditions = this.createIcon("hourIcon", "hourIcon"+index, hourInfo.hourIcon);
+            const hourConditions = await this.createIcon("hourIcon", "hourIcon"+index, hourInfo.hourIcon);
             hourCard.appendChild(hourDateTime);
             hourCard.appendChild(hourTemp);
             hourCard.appendChild(hourFeelsLike);
             hourCard.appendChild(hourConditions);
             hourlyInfo.append(hourCard);
-        })
+        }
     }
 
     createWeeklyCard(){
