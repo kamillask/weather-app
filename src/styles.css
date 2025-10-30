@@ -23,6 +23,12 @@ body {
     font-size: 3vh;
 }
 
+.mainCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #hourlyInfo {
     display: flex;
     margin: 5px;
@@ -31,4 +37,8 @@ body {
 .hourCard {
     border: 1px black solid;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 4vw;
 }

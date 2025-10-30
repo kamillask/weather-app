@@ -9,21 +9,32 @@ export class LocationHandler {
         this.weeklyConditions = locationData.days;
         this.sunrise = locationData.currentConditions.sunrise;
         this.sunset = locationData.currentConditions.sunset;
-        //populate hourly and weekly as days, but then some of these parameters would be missing
-        //how to go about that?
     }
 
-    createLocation(location) {
+    createLocation = (location) => {
         return new LocationHandler(location);
     }
 
-    returnHourlyInfo(index){
+    //should this be in UI instead?
+    hoursAmPmOptions = () => {
+        const options = {
+            hour: "numeric",
+            hour12: true
+        }
+        return options;
+    }
+
+    returnHourlyInfo = (index) => {
         const hour = {
-            dateTime: this.hourlyConditions[index].datetime,
+            dateTime: new Date(`${this.weeklyConditions[0].datetime}T${this.hourlyConditions[index].datetime}`),
             hourTemp: this.hourlyConditions[index].temp,
             hourFeelsLike: this.hourlyConditions[index].feelslike,
             hourIcon: this.hourlyConditions[index].icon
         }
         return hour;
+    }
+
+    returnWeekInfo = () => {
+
     }
 }
