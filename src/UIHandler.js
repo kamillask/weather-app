@@ -1,5 +1,4 @@
 import { LocationHandler } from "./LocationHandler";
-import cloudy from "./images/cloudy.png";
 
 export class UIHandler{
 
@@ -29,11 +28,10 @@ export class UIHandler{
     }
 
     createMainCard(){
-        //does this need a separate container? is maininfo enough?
         const mainInfo = document.getElementById("mainInfo");
         const locationName = this.createElement("div", "locationName", "locationNameID", this.LocationHandler.locationName);
         const currentTemp = this.createElement("div", "currentTemp", "currentTempID", this.LocationHandler.currTemp);
-        const hiLoTemp = this.createElement("div", "hiLo", "hiLoID", `Hi: ${this.LocationHandler.highTemp} Lo: ${this.LocationHandler.lowTemp}`);
+        const hiLoTemp = this.createElement("div", "hiLo", "hiLoID", `Hi: ${this.LocationHandler.highTemp}° Lo: ${this.LocationHandler.lowTemp}°`);
         mainInfo.appendChild(locationName);
         mainInfo.appendChild(currentTemp);
         mainInfo.appendChild(hiLoTemp);;
@@ -45,18 +43,27 @@ export class UIHandler{
             const hourCard = this.createElement("div", "hourCard", "hourCard"+index);
             const hourInfo = this.LocationHandler.returnHourlyInfo(index);
             const hourDateTime = this.createElement("div", "hourDateTime", "hourDateTime"+index, hourInfo.dateTime.toLocaleTimeString("en-US", this.LocationHandler.hoursAmPmOptions()));
-            const hourTemp = this.createElement("div", "hourTemp", "hourTemp"+index, hourInfo.hourTemp);
-            const hourFeelsLike = this.createElement("div", "hourFeelsLike", "hourFeelsLike"+index, hourInfo.hourFeelsLike);
+            const hourTemp = this.createElement("div", "hourTemp", "hourTemp"+index, `${hourInfo.hourTemp}°`);
             const hourConditions = await this.createIcon("hourIcon", "hourIcon"+index, hourInfo.hourIcon);
             hourCard.appendChild(hourDateTime);
             hourCard.appendChild(hourTemp);
-            hourCard.appendChild(hourFeelsLike);
             hourCard.appendChild(hourConditions);
             hourlyInfo.append(hourCard);
         }
     }
 
-    createWeeklyCard(){
-
+    createWeeklyCard = async () => {
+        const weeklyInfo = document.getElementById("weeklyInfo");
+        for(let index = 0; index < this.LocationHandler.weeklyConditions.length ; index++){
+            const weekCard = this.createElement("div", "weekCard", "weekCard"+index);
+            const weekInfo = this.LocationHandler.returnWeekInfo(index);
+            const weekDateTime = this.createElement("div", "weekDateTime", "weekDateTime"+index, weekInfo.dateTime.toLocaleDateString("en-US", this.LocationHandler.monthDateOptions()));
+            const weekHighLow = this.createElement("div", "weekHighLow", "weekHighLow"+index, `${weekInfo.weekHighTemp}° \ ${weekInfo.weekLowTemp}°`);
+            const weekConditions = await this.createIcon("weekIcon", "weekIcon"+index, weekInfo.weekIcon);
+            weekCard.appendChild(weekDateTime);
+            weekCard.appendChild(weekHighLow);
+            weekCard.appendChild(weekConditions);
+            weeklyInfo.appendChild(weekCard);
+        }
     }
 }

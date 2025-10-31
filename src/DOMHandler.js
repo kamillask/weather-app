@@ -51,7 +51,7 @@ export class DOMHandler {
         this.clearAll();
         this.UIHandler.createMainCard();
         this.UIHandler.createHourlyCard();
-        this.updateWeeklyInfo();
+        this.UIHandler.createWeeklyCard();
     }
 
     updateHourlyInfo = () => {
