@@ -1,5 +1,3 @@
-import { LocationHandler } from "./LocationHandler";
-
 export class UIHandler{
 
     constructor(LocationHandler){
@@ -29,9 +27,10 @@ export class UIHandler{
 
     createMainCard(){
         const mainInfo = document.getElementById("mainInfo");
-        const locationName = this.createElement("div", "locationName", "locationNameID", this.LocationHandler.locationName);
-        const currentTemp = this.createElement("div", "currentTemp", "currentTempID", this.LocationHandler.currTemp);
-        const hiLoTemp = this.createElement("div", "hiLo", "hiLoID", `Hi: ${this.LocationHandler.highTemp}° Lo: ${this.LocationHandler.lowTemp}°`);
+        const mainInfoReturn = this.LocationHandler.returnDayInfo();
+        const locationName = this.createElement("div", "locationName", "locationNameID", mainInfoReturn.name);
+        const currentTemp = this.createElement("div", "currentTemp", "currentTempID", mainInfoReturn.currentTemperature+"°");
+        const hiLoTemp = this.createElement("div", "hiLo", "hiLoID", `Hi: ${mainInfoReturn.currentHigh}° Lo: ${mainInfoReturn.currentLow}°`);
         mainInfo.appendChild(locationName);
         mainInfo.appendChild(currentTemp);
         mainInfo.appendChild(hiLoTemp);;

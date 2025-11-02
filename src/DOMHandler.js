@@ -2,6 +2,7 @@ import { UIHandler } from "./UIHandler";
 
 export class DOMHandler {
     locationInput = document.getElementById("searchWeatherInput");
+    toggleUnits = document.getElementById("toggleUnits");
     mainInfo = document.getElementById("mainInfo");
 
     constructor(APIHandler, LocationHandler) {
@@ -13,6 +14,11 @@ export class DOMHandler {
             if (event.key === "Enter") {
                 this.getLocationInput(this.locationInput.value);
             }
+        });
+
+        this.toggleUnits.addEventListener("click", () => {
+            this.LocationHandler.toggleUnits();
+            this.updateInfo();
         });
     }
 
@@ -52,23 +58,5 @@ export class DOMHandler {
         this.UIHandler.createMainCard();
         this.UIHandler.createHourlyCard();
         this.UIHandler.createWeeklyCard();
-    }
-
-    updateHourlyInfo = () => {
-        const hourlyInfo = document.getElementById("hourlyInfo");
-        this.LocationHandler.hourlyConditions.forEach(element => {
-            const hour = document.createElement("div");
-            hour.textContent = element.datetime + " ::: " + element.temp;
-            hourlyInfo.appendChild(hour);
-        })
-    }
-
-    updateWeeklyInfo = () => { 
-        const weeklyInfo = document.getElementById("weeklyInfo");
-        this.LocationHandler.weeklyConditions.forEach(element => {
-            const day = document.createElement("div");
-            day.textContent = element.datetime + " ::: " + element.temp;
-            weeklyInfo.appendChild(day);
-        })
     }
 }
