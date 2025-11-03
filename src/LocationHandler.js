@@ -5,6 +5,7 @@ export class LocationHandler {
         this.lowTemp = locationData.days[0].tempmin;
         this.highTemp = locationData.days[0].tempmax;
         this.currConditions = locationData.currentConditions.conditions;
+        this.currIcon = locationData.currentConditions.icon;
         this.hourlyConditions = locationData.days[0].hours;
         this.weeklyConditions = locationData.days;
         this.sunrise = locationData.currentConditions.sunrise;
@@ -50,7 +51,8 @@ export class LocationHandler {
             name: this.locationName,
             currentTemperature: this.setUnits===0 ? this.currTemp : this.calculateCelsius(this.currTemp),
             currentHigh: this.setUnits===0 ? this.highTemp : this.calculateCelsius(this.highTemp),
-            currentLow: this.setUnits===0 ? this.lowTemp : this.calculateCelsius(this.lowTemp)
+            currentLow: this.setUnits===0 ? this.lowTemp : this.calculateCelsius(this.lowTemp),
+            dayIcon : this.currIcon
         }
         return day;
     }
