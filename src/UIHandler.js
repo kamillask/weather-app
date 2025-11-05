@@ -7,6 +7,17 @@ export class UIHandler{
         this.APIHandler = new APIHandler();
     }
 
+    capitalizeWords = (string) => {
+        const separatedString = string.split(" ");
+        let result = "";
+        separatedString.forEach(element => {
+            const charArray = element.split("");
+            charArray.splice(0, 1, charArray[0].toUpperCase());
+            result+= charArray.join("")+" ";
+        })
+        return result.trim();
+    }
+
     createUIHandler(location){
         return new UIHandler(location);
     }
@@ -23,7 +34,7 @@ export class UIHandler{
         const element = document.createElement("img");
         element.className = elementClass;
         element.id = elementID;
-        const weatherIcon = await import(`./images/icons/${icon}.png`);
+        const weatherIcon = await import(`./images/icons/${icon}.svg`);
         element.src = weatherIcon.default;
         return element;
     }
@@ -36,30 +47,32 @@ export class UIHandler{
 
     createMainCard = async () => {
         const mainInfo = document.getElementById("mainInfo");
+        const mainContainer = this.createElement("div", "mainContainer", "mainContainerID")
         const mainInfoReturn = this.LocationHandler.returnDayInfo();
-        const locationName = this.createElement("div", "locationName", "locationNameID", mainInfoReturn.name);
+        const locationName = this.createElement("div", "locationName", "locationNameID", this.capitalizeWords(mainInfoReturn.name));
         const currentTemp = this.createElement("div", "currentTemp", "currentTempID", mainInfoReturn.currentTemperature+"°");
         const hiLoTemp = this.createElement("div", "hiLo", "hiLoID", `Hi: ${mainInfoReturn.currentHigh}° Lo: ${mainInfoReturn.currentLow}°`);
-        // const background = await this.createBackground(mainInfoReturn.dayIcon);
-        // mainInfo.style.backgroundImage = `url("${background}")`;
         this.createBackground(mainInfoReturn.dayIcon, mainInfo);
-        mainInfo.appendChild(locationName);
-        mainInfo.appendChild(currentTemp);
-        mainInfo.appendChild(hiLoTemp);;
+        mainContainer.appendChild(locationName);
+        mainContainer.appendChild(currentTemp);
+        mainContainer.appendChild(hiLoTemp);
+        mainInfo.appendChild(mainContainer);
     }
 
     createHourlyCard = async () => {
         const hourlyInfo = document.getElementById("hourlyInfo");
         for(let index = 0; index < this.LocationHandler.hourlyConditions.length ; index++){
+            const hourContainer = this.createElement("div", "hourContainer", "hourContainer"+index);
             const hourCard = this.createElement("div", "hourCard", "hourCard"+index);
             const hourInfo = this.LocationHandler.returnHourlyInfo(index);
             const hourDateTime = this.createElement("div", "hourDateTime", "hourDateTime"+index, hourInfo.dateTime.toLocaleTimeString("en-US", this.LocationHandler.hoursAmPmOptions()));
             const hourTemp = this.createElement("div", "hourTemp", "hourTemp"+index, `${hourInfo.hourTemp}°`);
             const hourConditions = await this.createIcon("hourIcon", "hourIcon"+index, hourInfo.hourIcon);
             this.createBackground(hourInfo.hourIcon, hourCard);
-            hourCard.appendChild(hourDateTime);
-            hourCard.appendChild(hourTemp);
-            hourCard.appendChild(hourConditions);
+            hourContainer.appendChild(hourDateTime);
+            hourContainer.appendChild(hourTemp);
+            hourContainer.appendChild(hourConditions);
+            hourCard.appendChild(hourContainer);
             hourlyInfo.append(hourCard);
         }
     }
@@ -67,15 +80,17 @@ export class UIHandler{
     createWeeklyCard = async () => {
         const weeklyInfo = document.getElementById("weeklyInfo");
         for(let index = 0; index < this.LocationHandler.weeklyConditions.length ; index++){
+            const weekContainer = this.createElement("div", "weekContainer", "weekContainer"+index);
             const weekCard = this.createElement("div", "weekCard", "weekCard"+index);
             const weekInfo = this.LocationHandler.returnWeekInfo(index);
             const weekDateTime = this.createElement("div", "weekDateTime", "weekDateTime"+index, weekInfo.dateTime.toLocaleDateString("en-US", this.LocationHandler.monthDateOptions()));
             const weekHighLow = this.createElement("div", "weekHighLow", "weekHighLow"+index, `${weekInfo.weekHighTemp}° \ ${weekInfo.weekLowTemp}°`);
             const weekConditions = await this.createIcon("weekIcon", "weekIcon"+index, weekInfo.weekIcon);
             this.createBackground(weekInfo.weekIcon, weekCard);
-            weekCard.appendChild(weekDateTime);
-            weekCard.appendChild(weekHighLow);
-            weekCard.appendChild(weekConditions);
+            weekContainer.appendChild(weekDateTime);
+            weekContainer.appendChild(weekHighLow);
+            weekContainer.appendChild(weekConditions);
+            weekCard.appendChild(weekContainer);
             weeklyInfo.appendChild(weekCard);
         }
     }
