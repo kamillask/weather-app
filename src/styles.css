@@ -1,14 +1,28 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: black;
+    padding: 10px;
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1920' height='1080' preserveAspectRatio='none' viewBox='0 0 1920 1080'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1162%26quot%3b)' fill='none'%3e%3crect width='1920' height='1080' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1163%26quot%3b)'%3e%3c/rect%3e%3cpath d='M1920 0L1334.9099999999999 0L1920 46.6z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M1334.9099999999999 0L1920 46.6L1920 617.37L1119.58 0z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M1119.58 0L1920 617.37L1920 626.25L778.28 0z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M778.28 0L1920 626.25L1920 762.87L272.86999999999995 0z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M0 1080L174.86 1080L0 991.39z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M0 991.39L174.86 1080L441.02000000000004 1080L0 688.7z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M0 688.7L441.02000000000004 1080L633.69 1080L0 289.25000000000006z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M0 289.25L633.69 1080L1122.3200000000002 1080L0 256.97z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1162'%3e%3crect width='1920' height='1080' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='10.94%25' y1='-19.44%25' x2='89.06%25' y2='119.44%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1163'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(0%2c 0%2c 0%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");}
+
+#toggleUnits{
+    padding: 2px 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+#toggleUnits:hover {
+    box-shadow: 1px 1px 10px #888888;
 }
 
 #searchWeather {
@@ -20,7 +34,7 @@ body {
     height: 8vh;
     padding: 2px 5px;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 1px solid black;
     font-size: 3vh;
 }
 
@@ -31,7 +45,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-size: cover;
     backdrop-filter: blur(1px);
 }
 
@@ -39,11 +52,12 @@ body {
     height: 30vh;
     width: 40vw;
     border: 1px solid black;
+    border-radius: 5px;
     color: white;
     font-size: 2rem;
     font-weight: bold;
     text-shadow: 1px 1px 2px black;
-    
+    background-size: cover;
 }
 
 
@@ -56,7 +70,7 @@ body {
     margin: 5px;
     width: 80vw;
     overflow-x: scroll;
-    scrollbar-color: grey black;
+    scrollbar-color: grey transparent;
     scrollbar-width: thin;
 }
 
@@ -68,7 +82,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 10vw;
-    height: 10vh;
+    height: 20vh;
     background-size: cover;
     color: white;
     font-weight: bold;
@@ -89,7 +103,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 6vw;
-    height: 10vh;
+    height: 20vh;
     background-size: cover;
     color: white;
     font-weight: bold;

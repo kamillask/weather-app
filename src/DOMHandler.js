@@ -35,22 +35,27 @@ export class DOMHandler {
         this.clearElement("weeklyInfo");
     }
 
-    //move to different class
+
     setDOMLocation = (location) => {
         const newLocation = this.LocationHandler.createLocation(location);
         this.LocationHandler = newLocation;
         const newUIHandler = this.UIHandler.createUIHandler(this.LocationHandler);
         this.UIHandler = newUIHandler;
     }
-    //move to different class
+
     getLocationInput = async (location) => {
         try {
             const result = await this.APIHandler.getLocation(location);
             this.setDOMLocation(result);
+            this.locationInput.setCustomValidity("");
+            this.locationInput.reportValidity();
             this.updateInfo();
         } catch (err) {
             console.log("Enter a valid location" + err);
+            this.locationInput.setCustomValidity("Enter a valid location.");
+            this.locationInput.reportValidity();
         }
+        this.locationInput.checkValidity();
     };
 
     updateInfo = async () => {
