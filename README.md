@@ -54,7 +54,7 @@ Start the server
 
 
 ## Screenshots
-![Default Page]([image-url](https://github.com/kamillask/weather-app/blob/main/weatherdefault.png))
-![Search Page]([image-url](https://github.com/kamillask/weather-app/blob/main/weathersearch.png))
+![Default Page](https://github.com/kamillask/weather-app/blob/main/weatherdefault.png)
+![Search Page](https://github.com/kamillask/weather-app/blob/main/weathersearch.png)
 
 
