@@ -18,14 +18,14 @@ A dynamic weather application that displays real time conditions, hourly forecas
 - LocationHandler → Stores data, converts units, formats dates
 - UIHandler → Builds UI elements, applies backgrounds, adds icons
 - DOMHandler → Handles events, updates UI after searches or toggles
-- 
+  
 ## Tech Stack
 - JavaScript (ES6+)
 - Visual Crossing Weather API
 - CSS
 - HTML
 - Dynamic imports for images/icons
-- 
+  
 ## Run Locally
 
 Clone the project
